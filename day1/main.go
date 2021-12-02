@@ -16,7 +16,6 @@ func countIncreases(input []int) int {
 
 		if num > input[idx-1] {
 			count = count + 1
-		} else {
 		}
 	}
 

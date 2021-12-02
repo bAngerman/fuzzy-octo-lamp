@@ -27,3 +27,22 @@ func ReadNumberFile(relativePath string) ([]int, error) {
 	}
 	return lines, scanner.Err()
 }
+
+func ReadTextFile(relativePath string) ([]string, error) {
+
+	absPath, _ := filepath.Abs("../" + relativePath)
+	f, err := os.Open(absPath)
+
+	if err != nil {
+		log.Panic("Error reading input!: ", err)
+	}
+
+	defer f.Close()
+
+	var lines []string
+	scanner := bufio.NewScanner(f)
+	for scanner.Scan() {
+		lines = append(lines, scanner.Text())
+	}
+	return lines, scanner.Err()
+}
