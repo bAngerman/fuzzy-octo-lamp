@@ -183,8 +183,8 @@ func part2(items []float64) {
 		}
 	}
 
-	fmt.Printf("Best horizontal pos is %f with an avg distance of %f\n", bestPos, bestDistance)
-	fmt.Printf("Worst horizontal pos is %f with an avg distance of %f\n", worstPos, worstDistance)
+	fmt.Printf("Best horizontal pos is %f with an avg distance of %f", bestPos, bestDistance)
+	fmt.Printf("Worst horizontal pos is %f with an avg distance of %f", worstPos, worstDistance)
 
 	var travelledDistance float64
 	// Using the best distance, count the total distance required to travel.
@@ -196,7 +196,7 @@ func part2(items []float64) {
 		travelledDistance = addAddlFuel(travelledDistance, thisDistance)
 	}
 
-	fmt.Printf("Best horizontal pos %f has a total distance of %f\n", bestPos, travelledDistance)
+	fmt.Printf("Best horizontal pos %f has a total distance of %f", bestPos, travelledDistance)
 }
 
 func main() {
@@ -222,5 +222,4 @@ func main() {
 
 	// part1(items)
 	part2(items)
-
 }
