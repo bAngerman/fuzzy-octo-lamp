@@ -196,7 +196,7 @@ func part2(lines []inputLine) {
 				}
 			}
 		}
-		log.Println("Output is", output)
+		// log.Println("Output is", output)
 
 		outputInt, _ := strconv.Atoi(output)
 		outputTotal = outputTotal + outputInt
@@ -215,8 +215,8 @@ func main() {
 		lines = append(lines, l)
 	}
 
-	pretty.Println(lines)
+	// pretty.Println(lines)
 
-	// part1(lines)
-	// part2(lines)
+	part1(lines)
+	part2(lines)
 }
