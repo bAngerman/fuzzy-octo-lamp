@@ -11,7 +11,7 @@ func part2(items []int) {
 }
 
 func main() {
-	inputArr, _ := utils.ReadNumberFile("day/input")
+	inputArr, _ := utils.ReadNumberFile("day17/input")
 
 	// part1(inputArr)
 	// part2(inputArr)
