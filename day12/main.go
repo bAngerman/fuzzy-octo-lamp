@@ -2,7 +2,6 @@ package main
 
 import (
 	"errors"
-	"log"
 	"strings"
 	"unicode"
 
@@ -15,8 +14,7 @@ type room struct {
 	isBigRoom bool
 
 	// Pointer for next room idx(s) and previous room idx
-	prevRoom  int
-	nextRooms []int
+	nextRooms []string
 }
 
 func IsUpper(s string) bool {
@@ -38,66 +36,21 @@ func findRoomByName(rooms []room, name string) (int, error) {
 	return 0, errors.New("Unable to find room with name " + name)
 }
 
-func pathfind(roomCopy []room, curRoomIdx, pathCount int) int {
-
-	// curRoom := roomCopy[curRoomIdx]
-	// prevRoom := roomCopy[curRoom.prevRoom]
-
-	// pretty.Println("Currently in", curRoom.name)
-
-	// // Room has been visited already, and it's a small room (only 1 visit allowed)
-	// // if curRoom.visited && !curRoom.isBigRoom {
-	// // 	pretty.Println("We have already visited ", curRoom.name, "so this path is invalid.")
-
-	// // 	return 0
-	// // }
-
-	// if len(curRoom.nextRooms) != 0 {
-	// 	for _, nextRoomIdx := range curRoom.nextRooms {
-	// 		// nextRoom := roomCopy[nextRoomIdx]
-
-	// 		// return pathfind(roomCopy, nextRoomIdx, pathCount)
-	// 		// if len(nextRoom.nextRooms) != 0 {
-	// 		// } else {
-
-	// 		// 	pretty.Println("There are no rooms after the next room", nextRoom.name)
-	// 		// }
-	// 	}
-	// } else {
-	// 	pretty.Println("There are no next rooms connected to", curRoom.name)
-	// 	// Made it to the end, incrementing path count.
-	// 	if curRoom.name == "end" {
-	// 		pretty.Println("made it to end")
-	// 		return pathCount + 1
-	// 	}
-
-	// 	// if !prevRoom.isBigRoom {
-	// 	// 	pretty.Println("The previous room is")
-	// 	// 	return 0
-	// 	// }
-	// }
-
-	return pathCount
-}
-
 func part1(rooms []room) {
-	var distinctPathCount int
+	var pathCount int
+	pretty.Println(rooms)
 
-	pretty.Println("Rooms", rooms)
+	/**
+	 * Starting at the "start" room, start building arrays of
+	 * room names (paths) by going through each next connected room.
+	 * Need to do some recursion to continue finding next rooms.
+	 */
 
-	startRoomIdx, err := findRoomByName(rooms, "start")
-	if err != nil {
-		log.Panic(err)
+	start, _ := findRoomByName(rooms, "start")
+
+	for _, nextRoom := range rooms[start].nextRooms {
 	}
 
-	startRoom := rooms[startRoomIdx]
-	for _, roomIdx := range startRoom.nextRooms {
-		roomCopy := rooms
-		distinctPathCount = distinctPathCount + pathfind(roomCopy, roomIdx, 0)
-	}
-
-	// pretty.Println(rooms)
-	pretty.Println("Count of distinct paths", distinctPathCount)
 }
 
 func part2(rooms []room) {
@@ -144,21 +97,15 @@ func main() {
 		for roomIdx, room := range rooms {
 			if room.name == parts[0] {
 
-				idx := 0
-				found := false
+				name := ""
 
-				for nextRoomIdx, nextRoom := range rooms {
+				for _, nextRoom := range rooms {
 					if nextRoom.name == parts[1] {
-						idx = nextRoomIdx
-						found = true
+						name = nextRoom.name
 					}
 				}
 
-				if !found {
-					panic("Something went wrong when finding the next room index Sadgeg")
-				}
-
-				rooms[roomIdx].nextRooms = append(rooms[roomIdx].nextRooms, idx)
+				rooms[roomIdx].nextRooms = append(rooms[roomIdx].nextRooms, name)
 			}
 		}
 	}
